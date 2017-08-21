@@ -1,0 +1,59 @@
+<h1>
+  
+</h1>
+<div class="container" >
+  <div class="jumbotron">
+    <h1 class="text-center">Metadata Comparison Tool</h1>
+    <h2 class="text-center">National Data Dictionary DHIS 2 Instance versus Provincial DHIS 2 Instances</h2>
+  </div>  
+ <div class="panel panel-primary">
+    <div class="panel-heading">NDD vs Provincial DHIS 2 Instances</div>
+    <div class="panel-body">
+	<form class="form-horizontal">
+<span > 
+ <label>Select DHIS2 Instance 1</label> &nbsp;
+ <select class="selectpicker"  data-live-search="true" ng-model="provinstance1">
+ <option ng-repeat="organisationUnit1 in organisationUnits" value = "{{organisationUnit1.name}}">{{organisationUnitsprovinstance1.name}}</option>
+  </select> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+  <label> Select DHIS2 Instance 2 </label>&nbsp;
+<select class="selectpicker"  data-live-search="true" ng-model="provinstance2">
+<option ng-repeat="organisationUnit2 in organisationUnits" value = "{{organisationUnit2.name}}">{{organisationUnitsprovinstance2.name}}</option> 
+</select>
+</span> 
+<br>
+<br>
+
+<label>What would you like to compare? Pick 1 Metadata</label>
+<div>
+<select  class="selectpicker"  data-live-search="true">
+  <option value="" disabled selected>None</option>
+ <option value="Data element">Data element</option>
+ <option value="Data set">Data set</option>
+ <option value="Indicator">Indicator</option>
+ <option value="Program">Program</option>
+</select>
+</div> 
+<br> 
+<input class="btn btn-primary"  type="submit" value="Compare Instances"> 
+</form>
+<br>
+<table class="table table-bordered">
+        <thead>
+            <th class="text-center">Name</th>
+        </thead>
+        <tbody class="table table-striped">
+            <tr  class="active" *ngFor="let dataElement of dataElements">               
+				<td class="active">{{dataElement.name}}</td>							
+            </tr>
+        </tbody>
+</table>
+</div>   
+</div>
+</div>  
+
+
+
+  
+  
+
