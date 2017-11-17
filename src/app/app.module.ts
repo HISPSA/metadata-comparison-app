@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule }   from '@angular/router';
+import { RouterModule, Routes}   from '@angular/router';
 
 import {AppComponent } from './app.component';
 import {EventCaptureFormProviderComponent } from './event-capture-form-provider/event-capture-form-provider.component';
@@ -22,7 +22,16 @@ import {NetworkAvailability} from './providers/network-availability';
 import {PeriodService} from './providers/period-service';
 import { OrganisationunitsComponent } from './organisationunits/organisationunits.component';
 import { IndicatorsComponent } from './indicators/indicators.component';
-import {User} from './providers/user'
+import {User} from './providers/user';
+import { MetadataComponent } from './metadata/metadata.component';
+import { MetadataDetailComponent } from './metadata-detail/metadata-detail.component'
+
+
+
+const appRoutes: Routes = [
+  { path: 'metadataDetail/:id', component: MetadataDetailComponent },
+  { path: 'metadata', component: MetadataComponent }
+];
 
 
 @NgModule({
@@ -30,18 +39,18 @@ import {User} from './providers/user'
     AppComponent,
     EventCaptureFormProviderComponent,
     OrganisationunitsComponent,
-    IndicatorsComponent
+    IndicatorsComponent,
+    MetadataComponent,
+    MetadataDetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-	RouterModule.forRoot([
-  {
-    path: 'event',
-    component: EventCaptureFormProviderComponent
-  }
-  ])],
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )],
   providers: [DataElementService,DashboardService, DatasetService, DatavalueService, EventService,  OrganisationUnitService,  ProgramService, VisualiserService,ProgramStageSectionsService, ProgramStageDataElementService, IndicatorService, NetworkAvailability, User ],
   bootstrap: [AppComponent]
 })

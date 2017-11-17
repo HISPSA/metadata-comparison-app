@@ -1,26 +1,26 @@
 <h1>
-  
+
 </h1>
 <div class="container" >
   <div class="jumbotron">
     <h1 class="text-center">Metadata Comparison Tool</h1>
     <h2 class="text-center">National Data Dictionary DHIS 2 Instance versus Provincial DHIS 2 Instances</h2>
-  </div>  
+  </div>
  <div class="panel panel-primary">
     <div class="panel-heading">NDD vs Provincial DHIS 2 Instances</div>
     <div class="panel-body">
 	<form class="form-horizontal">
-<span > 
+<span >
  <label>Select DHIS2 Instance 1</label> &nbsp;
- <select class="selectpicker"  data-live-search="true" ng-model="provinstance1">
- <option ng-repeat="organisationUnit1 in organisationUnits" value = "{{organisationUnit1.name}}">{{organisationUnitsprovinstance1.name}}</option>
-  </select> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+ <select class="selectpicker"  data-live-search="true">
+ <option  *ngFor="let inst of instances" [value] = "inst.address" #inst1>{{inst.name}}</option>
+  </select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <label> Select DHIS2 Instance 2 </label>&nbsp;
-<select class="selectpicker"  data-live-search="true" ng-model="provinstance2">
-<option ng-repeat="organisationUnit2 in organisationUnits" value = "{{organisationUnit2.name}}">{{organisationUnitsprovinstance2.name}}</option> 
+<select class="selectpicker"  data-live-search="true">
+<option *ngFor="let inst of instances" [value] = "inst.address" #inst2>{{inst.name}}</option>
 </select>
-</span> 
+</span>
 <br>
 <br>
 
@@ -28,32 +28,48 @@
 <div>
 <select  class="selectpicker"  data-live-search="true">
   <option value="" disabled selected>None</option>
- <option value="Data element">Data element</option>
- <option value="Data set">Data set</option>
- <option value="Indicator">Indicator</option>
- <option value="Program">Program</option>
+ <option *ngFor = "let type of metadataTypes" [value]="type" >{{type}}</option>
 </select>
-</div> 
-<br> 
-<input class="btn btn-primary"  type="submit" value="Compare Instances"> 
+</div>
+<br>
+<input class="btn btn-primary"  type="submit" value="Compare Instances"  (onClick) = "onCompare()">
+
 </form>
 <br>
+
+
+<!--
+
+      <div class="row" *ngFor = "let appl of listOfApplications">
+        <div class="col-sm-4">{{appl.created}}</div>
+        <div class="col-sm-4">{{appl.dataValues[0].value}}</div>
+        <div class="col-sm-4">{{appl.status}}</div>
+
+      </div>
+
+-->
+
+
+      <!--
 <table class="table table-bordered">
         <thead>
             <th class="text-center">Name</th>
         </thead>
         <tbody class="table table-striped">
-            <tr  class="active" *ngFor="let dataElement of dataElements">               
-				<td class="active">{{dataElement.name}}</td>							
+            <tr  class="active" *ngFor="let dataElement of dataElements">
+				<td class="active">{{dataElement.name}}</td>
             </tr>
         </tbody>
 </table>
-</div>   
+
+      -->
+
 </div>
-</div>  
+</div>
+</div>
 
 
 
-  
-  
+
+
 
