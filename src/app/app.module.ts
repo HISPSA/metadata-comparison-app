@@ -27,6 +27,8 @@ import { MetadataComponent } from './metadata/metadata.component';
 import { MetadataDetailComponent } from './metadata-detail/metadata-detail.component'
 import {Metadataservice} from './providers/MetadataService';
 
+import {FilterPipe} from './pipes';
+
 
 
 const appRoutes: Routes = [
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
     OrganisationunitsComponent,
     IndicatorsComponent,
     MetadataComponent,
-    MetadataDetailComponent
+    MetadataDetailComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

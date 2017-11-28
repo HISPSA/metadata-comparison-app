@@ -38,33 +38,48 @@
 <br>
 <input class="btn btn-primary"  type="submit" value="Compare Instances">
 
+    <div class="container">
 
 
-    <!--
-    <div class="row">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-3">Instance 1</div>
+      <div class="row">
+        <br>
 
-    </div>
-    <div class="row" *ngFor = "let appl of listOfApplications; let i = index">
-      <div class="col-sm-2">{{i+1}}</div>
-      <div class="col-sm-3">{{appl.created}}</div>
+
+
+          <div>
+            <label>Search {{selectedMetadataType}}  </label><input type="text" name="search" id="searchbtnid"  [(ngModel)]="searchTerm" placeholder="Search Metadata" >
+
+          </div>
+
+
+
+
+        <div class="col-xs-6">
+
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3">{{Selectedinstance1}} Instance</div>
+
+          </div>
+          <div class="row" *ngFor = "let metad1 of metadataReturned1| FilterPipe:searchTerm; let i = index">
+            <div class="col-sm-2">{{i+1}}</div>
+            <div class="col-sm-3">{{metad1.name}} </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3">{{SelectedInstance2}} Instance</div>
+
+          </div>
+          <div class="row" *ngFor = "let metad2 of metadataReturned2| FilterPipe:searchTerm; let i = index">
+            <div class="col-sm-2">{{i+1}}</div>
+            <div class="col-sm-3">{{metad2.name}}</div>
+          </div>
+
+        </div>
       </div>
-
-
-
-    <div class="row">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-3">Instance 1</div>
-
     </div>
-    <div class="row" *ngFor = "let appl of listOfApplications; let i = index">
-      <div class="col-sm-2">{{i+1}}</div>
-      <div class="col-sm-3">{{appl.created}}</div>
-    </div>
-
-    -->
-
   </form>
 <br>
 
