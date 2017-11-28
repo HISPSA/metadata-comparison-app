@@ -93,8 +93,6 @@ private selectedMetadataType: string;
    constructor(private metadataservice: Metadataservice, private dataelemetservice:DataElementService, private organisationUnitService: OrganisationUnitService) {
 
    this.metadataReturned1  = [];
-
-
    this.metadataReturned2  = [];
 
 
@@ -191,7 +189,6 @@ private selectedMetadataType: string;
      this.instances[7]=this.lp;
      this.instances[8]=this.wc;
      this.instances[9]=this.nc;
-
 
      this.instances.sort();
 
@@ -334,8 +331,6 @@ this.organisationUnitService.getOrganisationUnits(provincesurl)
 
         })
         .catch(error => console.log(error)); }
-
-
   }
 
   onselection($event) {
@@ -355,44 +350,51 @@ this.organisationUnitService.getOrganisationUnits(provincesurl)
             break;
           }
           case "Mpumalanga": {
-            this.usernameInstance1 = "";
-            this.passwordInstance1 = "";
+            this.usernameInstance1 = "admin";
+            this.passwordInstance1 = "district";
+            this.addressInstance1 ="https://play.dhis2.org/demo/api/";
             break;
           }
 
           case "Limpopo": {
             this.usernameInstance1 = "";
             this.passwordInstance1 = "";
+            this.addressInstance1 ="";
             break;
           }
 
           case "Free State": {
             this.usernameInstance1 = "";
             this.passwordInstance1 = "";
+            this.addressInstance1 ="";
             break;
           }
 
           case "North West": {
             this.usernameInstance1 = "";
             this.passwordInstance1 ="";
+            this.addressInstance1 ="";
             break;
           }
 
           case "Western Cape": {
             this.usernameInstance1 = "";
             this.passwordInstance1 = "";
+            this.addressInstance2 ="";
             break;
           }
 
           case "Northen Cape": {
             this.usernameInstance1 = "";
             this.passwordInstance1 = "";
+            this.addressInstance1 ="";
             break;
           }
 
           case "Eastern Cape": {
             this.usernameInstance1 = "";
             this.passwordInstance1 = "";
+            this.addressInstance1 ="";
             break;
           }
             case "NDD": {
@@ -405,6 +407,7 @@ this.organisationUnitService.getOrganisationUnits(provincesurl)
           default: {
             this.usernameInstance1 = "admin"
             this.passwordInstance1 = "district"
+            this.addressInstance1 ="";
             break;
           }
         }
@@ -430,6 +433,7 @@ this.organisationUnitService.getOrganisationUnits(provincesurl)
         case "Mpumalanga": {
           this.usernameInstance2 = "";
           this.passwordInstance2 = "";
+          this.addressInstance2 ="";
           break;
         }
 
@@ -442,30 +446,35 @@ this.organisationUnitService.getOrganisationUnits(provincesurl)
         case "Free State": {
           this.usernameInstance2 = "";
           this.passwordInstance2 = "";
+          this.addressInstance2 ="";
           break;
         }
 
         case "North West": {
           this.usernameInstance2 = "";
           this.passwordInstance2 = "";
+          this.addressInstance2 ="";
           break;
         }
 
         case "Western Cape": {
           this.usernameInstance2 = "";
           this.passwordInstance2 = "";
+          this.addressInstance2 ="";
           break;
         }
 
         case "Northen Cape": {
           this.usernameInstance2 = "";
           this.passwordInstance2 = "";
+          this.addressInstance2 ="";
           break;
         }
 
         case "Eastern Cape": {
           this.usernameInstance2 = "";
           this.passwordInstance2 = "";
+          this.addressInstance2 ="";
           break;
         }
         case "NDD": {
