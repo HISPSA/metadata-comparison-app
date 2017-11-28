@@ -25,6 +25,7 @@ import { IndicatorsComponent } from './indicators/indicators.component';
 import {User} from './providers/user';
 import { MetadataComponent } from './metadata/metadata.component';
 import { MetadataDetailComponent } from './metadata-detail/metadata-detail.component'
+import {Metadataservice} from './providers/MetadataService';
 
 
 
@@ -51,7 +52,7 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     )],
-  providers: [DataElementService,DashboardService, DatasetService, DatavalueService, EventService,  OrganisationUnitService,  ProgramService, VisualiserService,ProgramStageSectionsService, ProgramStageDataElementService, IndicatorService, NetworkAvailability, User ],
+  providers: [Metadataservice,DataElementService,DashboardService, DatasetService, DatavalueService, EventService,  OrganisationUnitService,  ProgramService, VisualiserService,ProgramStageSectionsService, ProgramStageDataElementService, IndicatorService, NetworkAvailability, User ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

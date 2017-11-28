@@ -6,6 +6,8 @@ import {OrganisationUnitService} from './providers/organisation-unit.service';
 import {User} from './providers/user';
 import {dhis2Instance} from './dhis2Instance';
 
+import {Metadataservice} from './providers/MetadataService';
+
 
 @Component({
   selector: 'app-root',
@@ -65,8 +67,27 @@ export class AppComponent {
   count: number=0;
 
 
+  private   addressInstance1: string='';
+  private   addressInstance2: string='';
+  private metadataType: string ='';
 
-   constructor(private dataelemetservice:DataElementService, private organisationUnitService: OrganisationUnitService) {
+  private metadataReturned1 : any;
+  private metadataReturned2 : any;
+
+  private usernameInstance1: string;
+  private passwordInstance1: string;
+  private address1: string;
+
+  private usernameInstance2: string;
+  private passwordInstance2: string;
+  private address2: string;
+
+
+   constructor(private metadataservice: Metadataservice, private dataelemetservice:DataElementService, private organisationUnitService: OrganisationUnitService) {
+
+   this.metadataReturned1  = [];
+   this.metadataReturned2  = [];
+
 
      this.metadataTypes =  [];
      this.metadataTypes.push("dataElements");
@@ -100,16 +121,16 @@ export class AppComponent {
      this.fs = new dhis2Instance();
      this.nc = new dhis2Instance();
 
-     this.gp.address = "";
+     this.gp.address = "https://elogbook.dhis.dhmis.org/staging/api/";
      this.gp.name = "Gauteng";
-     this.gp.username = "";
-     this.gp.password = "";
+     this.gp.username = "admin";
+     this.gp.password = "Terminal17";
 
 
-     this.ndd.address = "";
+     this.ndd.address = "https://fhwm.dhis.dhmis.org/staging/api/";
      this.ndd.name = "NDD";
-     this.ndd.username = "";
-     this.ndd.password = "";
+     this.ndd.username = "Comfort_Mankga";
+     this.ndd.password = "Mathematics315@";
 
      this.mp.address = "";
      this.mp.name = "Mpumalanga";
@@ -169,10 +190,17 @@ export class AppComponent {
    }
 
   ngOnInit() {
-	    const dataelementUrl='https://fhwm.dhis.dhmis.org/staging/api/dataElements'+'.json?fields=:all,id,name,aggregationType,displayName,categoryCombo[id,name,categories[id,name,categoryOptions[id,name]]],dataSets[:all,!compulsoryDataElementOperands]'
 
-		const provincesurl = 'https://fhwm.dhis.dhmis.org/staging/api/organisationUnits?fields=:all&filter=level:eq:2'
+    const dataelementUrl='https://fhwm.dhis.dhmis.org/staging/api/dataElements'+'.json?fields=:all,id,name,aggregationType,displayName,categoryCombo[id,name,categories[id,name,categoryOptions[id,name]]],dataSets[:all,!compulsoryDataElementOperands]'
 
+		const provincesurl = 'https://fhwm.dhis.dhmis.org/staging/api/organisationUnits?fields=:all&filter=level:eq:2';
+   ;
+
+
+
+
+
+/*
 this.dataelemetservice.getDataelementsService(dataelementUrl)
 .then(result =>{ this.dataElements =result.dataElements
 
@@ -181,12 +209,11 @@ this.dataelemetservice.getDataelementsService(dataelementUrl)
       console.log("list of dataelements "+ dataelement.name )
 
     }
-
-
-
-
   })
 .catch(error => console.log(error));
+
+
+    */
 
 this.organisationUnitService.getOrganisationUnits(provincesurl)
 .then(result =>{ this.organisationUnits =result.organisationUnits
@@ -206,18 +233,208 @@ this.organisationUnitService.getOrganisationUnits(provincesurl)
   }
 
 
+  onCompare($event) {
 
-  onCompare(addressInstance1: string, addressInstance2: string, metadataType: string) {
+    if ( this.addressInstance1=="" || this.addressInstance2=="" || this.metadataType ==""){
+      alert("select an instance and metadataType before comparing")
+    }
+    else{
+      this.dhis2hostname1url = this.addressInstance1+this.metadataType+".json";
+      this.dhis2hostname2url = this.addressInstance2+this.metadataType+".json";
 
-alert(addressInstance1);
+      console.log(this.dhis2hostname1url);
+      console.log(this.dhis2hostname2url);
 
 
-    this.dhis2hostname1url = addressInstance1+metadataType;
-    this.dhis2hostname2url = addressInstance2+metadataType;
 
+
+      this.metadataservice.getMetadata(this.dhis2hostname1url,this.usernameInstance1, this.passwordInstance1)
+        .then(result =>{ this.metadataReturned1 =result
+          console.log(result)
+        })
+        .catch(error => console.log(error));
+
+
+      this.metadataservice.getMetadata(this.dhis2hostname1url,this.usernameInstance2,this.passwordInstance2)
+        .then(result =>{ this.metadataReturned2 =result
+          console.log(result);
+        })
+        .catch(error => console.log(error));
+    }
 
 
   }
+
+  onselection($event) {
+
+
+
+
+     if ($event.target.name == "InstanceName1" )
+    {
+
+      let nameaddressInstance1= $event.target.value;
+      //this.addressInstance1= $event.target.value;
+      console.log("instance 2 :"+ this.addressInstance1);
+
+
+      for (let inst of this.instances)
+      {
+          switch(nameaddressInstance1) {
+          case "Gauteng": {
+            this.usernameInstance1 = inst.username;
+            this.passwordInstance1 = inst.password;
+            this.addressInstance1 = "https://elogbook.dhis.dhmis.org/staging/api/";
+            break;
+          }
+          case "Mpumalanga": {
+            this.usernameInstance1 = inst.username;
+            this.passwordInstance1 = inst.password;
+            break;
+          }
+
+          case "Limpopo": {
+            this.usernameInstance1 = inst.username;
+            this.passwordInstance1 = inst.password;
+            break;
+          }
+
+          case "Free State": {
+            this.usernameInstance1 = inst.username;
+            this.passwordInstance1 = inst.password;
+            break;
+          }
+
+          case "North West": {
+            this.usernameInstance1 = inst.username;
+            this.passwordInstance1 = inst.password;
+            break;
+          }
+
+          case "Western Cape": {
+            this.usernameInstance1 = inst.username;
+            this.passwordInstance1 = inst.password;
+            break;
+          }
+
+          case "Northen Cape": {
+            this.usernameInstance1 = inst.username;
+            this.passwordInstance1 = inst.password;
+            break;
+          }
+
+          case "Eastern Cape": {
+            this.usernameInstance1 = inst.username;
+            this.passwordInstance1 = inst.password;
+            break;
+          }
+            case "NDD": {
+              this.usernameInstance1 = inst.username;
+              this.passwordInstance1 = inst.password;
+              this.addressInstance1 = "https://fwm.dhis.dhmis.org/staging/api/";
+              break;
+            }
+          default: {
+            this.usernameInstance1 = inst.username;
+            this.passwordInstance1 = inst.password;
+            break;
+          }
+        }
+   }
+
+
+    }
+
+    else if ($event.target.name == "InstanceName2")
+    {
+
+      let nameaddressInstance2= $event.target.value;
+
+     // this.addressInstance2= $event.target.value
+
+     // console.log("instance 2 :"+ this.addressInstance2);
+
+
+      for (let inst of this.instances)
+      {
+        switch(nameaddressInstance2) {
+          case "Gauteng": {
+            this.usernameInstance2 = inst.username;
+            this.passwordInstance2 = inst.password;
+            this.addressInstance2 = "https://elogbook.dhis.dhmis.org/staging/api/";
+
+            break;
+          }
+          case "Mpumalanga": {
+            this.usernameInstance2 = inst.username;
+            this.passwordInstance2 = inst.password;
+            break;
+          }
+
+          case "Limpopo": {
+            this.usernameInstance2 = inst.username;
+            this.passwordInstance2 = inst.password;
+            break;
+          }
+
+          case "Free State": {
+            this.usernameInstance2 = inst.username;
+            this.passwordInstance2 = inst.password;
+            break;
+          }
+
+          case "North West": {
+            this.usernameInstance2 = inst.username;
+            this.passwordInstance2 = inst.password;
+            break;
+          }
+
+          case "Western Cape": {
+            this.usernameInstance2 = inst.username;
+            this.passwordInstance2 = inst.password;;
+            break;
+          }
+
+          case "Northen Cape": {
+            this.usernameInstance2 = inst.username;
+            this.passwordInstance2 = inst.password;
+            break;
+          }
+
+          case "Eastern Cape": {
+            this.usernameInstance2 = inst.username;
+            this.passwordInstance2 = inst.password;
+            break;
+          }
+          case "NDD": {
+            this.usernameInstance1 = inst.username;
+            this.passwordInstance1 = inst.password;
+            this.addressInstance2 = "https://fwm.dhis.dhmis.org/staging/api/";
+            break;
+          }
+
+
+          default: {
+            this.usernameInstance2 = inst.username;
+            this.passwordInstance2 = inst.password;
+
+            break;
+          }
+        }
+      }
+
+
+
+    }else if ($event.target.name == "metadatatype"){
+
+      this.metadataType= $event.target.value;
+
+      console.log("Metadata  :"+ this.metadataType);
+
+
+    }
+  }
+
 
 
 
